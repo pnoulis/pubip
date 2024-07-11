@@ -1,31 +1,30 @@
 # About
 
-Scripts that setup a Host behind an internet gateway to be publicly
+Scripts that setup a Host behind an SOHO router to be publicly
 
 accessible.
 
-There are multiple solutions to this task.
+There are possibly multiple solutions to this task.
 
 For now, I will implement the following solution:
 
-- The gateway is configured through DHCP to allocate a static IP to
+- The SOHO router is configured through DHCP to allocate a static IP to
 
   the LAN Host.
 
-- The gateway is configured to forward some ports to the LAN Host.
+- The SOHO router is configured to forward some ports to the
 
-- The Host periodically pushes the gateway's WAN IP to a Host behind
-  a static public IP.
+  LAN Host.
 
-- The static public IP Host is configured to proxy requests intended
+- The LAN Host periodically or as a response to an event (such as a
+  router reboot) pushes the SOHO router's WAN IP to the publicly
+  accessible Host
 
-  for the LAN Host behind the gateway by having the most updated
+- The public Host is configured to proxy requests intended for the LAN
+  Host through the SOHO router's IP.
 
-  version of the gateway's public WAN IP.
 
-
-[ Host ] -> [ proxy ] -> [ internet gateway ] -> [ LAN Host ]
-
+[ LAN Host ] -> [ publicly accessible proxy ] -> [ SOHO router ] -> [ LAN Host ]
 
 ## Getting started
 
@@ -34,7 +33,6 @@ For now, I will implement the following solution:
 ### Installation
 
 ## Usage
-
 ## Contributing
 
 pull request
@@ -46,8 +44,4 @@ pull request
 ## Contact
 
 - pavlos noulis <pavlos.noulis@gmail.com> (github.com/pnoulis)
-
-
-
-
 
