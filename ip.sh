@@ -71,6 +71,6 @@ ip_get_link_dns() {
     ip -json route \
         | jq -r --arg link $link '.[] | select(.dev==$link) | select(.dst=="default") | .gateway'
 }
-get_router_wan_ip() {
+get_gateway_wan_ip() {
     printf "%s\n" $(curl -s https://ipinfo.io/ip)
 }
