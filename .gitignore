@@ -1,2 +1,11 @@
 /scratch.sh
+
+# make build output
 edithosts
+puship
+Makefile
+
+# configure output
+config.env
+config.log
+config.macros.m4

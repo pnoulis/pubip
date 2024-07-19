@@ -12,11 +12,14 @@ macrosfiles						= $(srcdir_top)/macros.m4
 proxy_login_username	?= $(USER)
 proxy_hostname				?= localhost
 proxy_port						?= 22
-proxy_path						?= $(bindir)
 
-all: edithosts
+all: edithosts puship
 
 edithosts: edithosts.sh
+	$(m4) $(macrosfile) $< > $@
+	chmod 755 $@
+
+puship: puship.sh
 	$(m4) $(macrosfile) $< > $@
 	chmod 755 $@
 
@@ -27,4 +30,4 @@ install: install_edithosts
 
 install_edithosts: edithosts
 # -p preserve file attributes
-	scp -p -P 22 $(srcdir_top)/$< $(proxy_login_username)@$(proxy_hostname):$(proxy_path)
+	scp -p -P 22 $(srcdir_top)/$< $(proxy_login_username)@$(proxy_hostname):$(bindir)/edithosts
