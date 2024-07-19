@@ -9,10 +9,11 @@
 #
 # @param {string} command
 # @param {string} version template string
+# @param {string} comparison operator
 # @returns {number} 0 = true, 1 = false
 is_command_installed() {
     command="$1"
-    version_required="$2"
+    version_required="${2:-*.*.*}"
     local logical_operator="${3:-==}"
     command_path=
     version_installed=
@@ -33,9 +34,10 @@ is_command_installed() {
         echo "$command" "installed version ->" "$version_installed"
     fi
 
-    echo "$command" "required version ->" "$logical_operator" "$version_required"
+    echo "$command" "required version ->" "$logical_operator" "${version_required}"
     if ! compare_versions "$version_installed" "$logical_operator" "$version_required"; then
         echo "$command" "version in range ->" "false"
+        version_in_range=false
         return 1
     else
         echo "$command" "version in range ->" "true"
@@ -62,7 +64,7 @@ get_command_path() {
 get_version() {
     local program=$1
     local version=
-    version="$($program --version | head -n 1 | grep -Eo '[0-9]+\.[0-9]+\.([0-9]+)?')" || return 1
+    version="$($program --version | head -n 1 | grep -Eo '[0-9]+\.[0-9]+(.[0-9]+)?')" || return 1
     echo "$version"
 }
 
